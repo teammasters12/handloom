@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Danudara Textiles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+    <!-- Login Section -->
+    <div class="admin-login" id="adminLogin">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="assets/images/logo.png" alt="Danudara Textiles" class="login-logo">
+                <h1>Admin Panel</h1>
+                <p>Sign in to manage your store</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="emailInput">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input type="email" id="emailInput" required placeholder="admin@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="passwordInput">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input type="password" id="passwordInput" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+            </form>
+            <div class="login-error" id="loginError"></div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="assets/images/logo.png" alt="Danudara Textiles" class="sidebar-logo">
+                <span>Admin Panel</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" data-section="products">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="#" class="nav-link" data-section="categories">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </a>
+                <a href="#" class="nav-link" data-section="delivery">
+                    <i class="fas fa-truck"></i>
+                    <span>Delivery Charges</span>
+                </a>
+                <a href="#" class="nav-link" data-section="payments">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payment Methods</span>
+                </a>
+                <a href="#" class="nav-link" data-section="content">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Content</span>
+                </a>
+                <a href="#" class="nav-link" data-section="banners">
+                    <i class="fas fa-image"></i>
+                    <span>Banners</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    <span>View Store</span>
+                </a>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title" id="pageTitle">Products</h1>
+                <div class="admin-user">
+                    <span id="adminEmail">admin@example.com</span>
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </header>
+
+            <!-- Products Section -->
+            <section class="admin-section" id="productsSection">
+                <div class="section-header">
+                    <h2>Manage Products</h2>
+                    <button class="add-btn" id="addProductBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Product
+                    </button>
+                </div>
+                <div class="data-table-container">
+                    <table class="data-table" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="admin-section" id="categoriesSection" style="display: none;">
+                <div class="section-header">
+                    <h2>Manage Categories</h2>
+                    <button class="add-btn" id="addCategoryBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Category
+                    </button>
+                </div>
+                <div class="data-table-container">
+                    <table class="data-table" id="categoriesTable">
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Name (EN)</th>
+                                <th>Name (SI)</th>
+                                <th>Name (TA)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoriesTableBody">
+                            <!-- Categories loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Delivery Charges Section -->
+            <section class="admin-section" id="deliverySection" style="display: none;">
+                <div class="section-header">
+                    <h2>Delivery Charges</h2>
+                    <button class="add-btn" id="addDeliveryBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Charge
+                    </button>
+                </div>
+                <div class="data-table-container">
+                    <table class="data-table" id="deliveryTable">
+                        <thead>
+                            <tr>
+                                <th>District</th>
+                                <th>City</th>
+                                <th>Charge (Rs.)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deliveryTableBody">
+                            <!-- Delivery charges loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Payment Methods Section -->
+            <section class="admin-section" id="paymentsSection" style="display: none;">
+                <div class="section-header">
+                    <h2>Payment Methods</h2>
+                </div>
+                <div class="payment-cards" id="paymentCards">
+                    <!-- Payment methods loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section class="admin-section" id="contentSection" style="display: none;">
+                <div class="section-header">
+                    <h2>Manage Content</h2>
+                </div>
+                <div class="content-tabs">
+                    <button class="tab-btn active" data-tab="promotions">Promotions</button>
+                    <button class="tab-btn" data-tab="about">About Page</button>
+                    <button class="tab-btn" data-tab="contact">Contact Info</button>
+                </div>
+                <div class="content-panels">
+                    <!-- Promotions Tab -->
+                    <div class="tab-panel active" id="promotionsPanel">
+                        <form id="promotionsForm">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="promoActive">
+                                    Enable Promotion Banner
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Promotion Text (English)</label>
+                                <input type="text" id="promoTextEn" placeholder="Enter promotion text">
+                            </div>
+                            <div class="form-group">
+                                <label>Promotion Text (Sinhala)</label>
+                                <input type="text" id="promoTextSi" placeholder="ප්‍රවර්ධන පෙළ ඇතුළත් කරන්න">
+                            </div>
+                            <div class="form-group">
+                                <label>Promotion Text (Tamil)</label>
+                                <input type="text" id="promoTextTa" placeholder="விளம்பர உரையை உள்ளிடவும்">
+                            </div>
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                    <!-- About Tab -->
+                    <div class="tab-panel" id="aboutPanel">
+                        <form id="aboutForm">
+                            <div class="form-group">
+                                <label>About Title (English)</label>
+                                <input type="text" id="aboutTitleEn">
+                            </div>
+                            <div class="form-group">
+                                <label>About Content (English)</label>
+                                <textarea id="aboutContentEn" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>About Title (Sinhala)</label>
+                                <input type="text" id="aboutTitleSi">
+                            </div>
+                            <div class="form-group">
+                                <label>About Content (Sinhala)</label>
+                                <textarea id="aboutContentSi" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>About Title (Tamil)</label>
+                                <input type="text" id="aboutTitleTa">
+                            </div>
+                            <div class="form-group">
+                                <label>About Content (Tamil)</label>
+                                <textarea id="aboutContentTa" rows="5"></textarea>
+                            </div>
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Contact Tab -->
+                    <div class="tab-panel" id="contactPanel">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="contactPhone">
+                            </div>
+                            <div class="form-group">
+                                <label>WhatsApp Number</label>
+                                <input type="tel" id="contactWhatsapp">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="contactEmail">
+                            </div>
+                            <div class="form-group">
+                                <label>Address (English)</label>
+                                <input type="text" id="contactAddressEn">
+                            </div>
+                            <div class="form-group">
+                                <label>Facebook URL</label>
+                                <input type="url" id="contactFacebook">
+                            </div>
+                            <div class="form-group">
+                                <label>Instagram URL</label>
+                                <input type="url" id="contactInstagram">
+                            </div>
+                            <button type="submit" class="save-btn">
+                                <i class="fas fa-save"></i>
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Banners Section -->
+            <section class="admin-section" id="bannersSection" style="display: none;">
+                <div class="section-header">
+                    <h2>Manage Banners</h2>
+                    <button class="add-btn" id="addBannerBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Banner
+                    </button>
+                </div>
+                <div class="banners-grid" id="bannersGrid">
+                    <!-- Banners loaded dynamically -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="admin-modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="productModalTitle">Add Product</h2>
+                <button class="modal-close" id="productModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Product Name (English) *</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Product Name (Sinhala)</label>
+                        <input type="text" id="productNameSi">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Product Name (Tamil)</label>
+                        <input type="text" id="productNameTa">
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="productCategory" required>
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price (Rs.) *</label>
+                        <input type="number" id="productPrice" required min="0" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Original Price (Rs.)</label>
+                        <input type="number" id="productOriginalPrice" min="0" step="0.01">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description (English)</label>
+                    <textarea id="productDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Description (Sinhala)</label>
+                    <textarea id="productDescriptionSi" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Description (Tamil)</label>
+                    <textarea id="productDescriptionTa" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Product Image</label>
+                    <div class="image-upload">
+                        <input type="file" id="productImage" accept="image/*">
+                        <div class="image-preview" id="imagePreview">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Click to upload or drag and drop</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="productActive" checked>
+                            Active
+                        </label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="productFeatured">
+                            Featured
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="productCancelBtn">Cancel</button>
+                    <button type="submit" class="save-btn">
+                        <i class="fas fa-save"></i>
+                        Save Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="admin-modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="categoryModalTitle">Add Category</h2>
+                <button class="modal-close" id="categoryModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="categoryForm">
+                <input type="hidden" id="categoryId">
+                <div class="form-group">
+                    <label>Category Name (English) *</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category Name (Sinhala)</label>
+                    <input type="text" id="categoryNameSi">
+                </div>
+                <div class="form-group">
+                    <label>Category Name (Tamil)</label>
+                    <input type="text" id="categoryNameTa">
+                </div>
+                <div class="form-group">
+                    <label>Icon (Font Awesome class)</label>
+                    <input type="text" id="categoryIcon" placeholder="fa-tshirt">
+                </div>
+                <div class="form-group">
+                    <label>Sort Order</label>
+                    <input type="number" id="categorySortOrder" value="0">
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="categoryActive" checked>
+                        Active
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="categoryCancelBtn">Cancel</button>
+                    <button type="submit" class="save-btn">
+                        <i class="fas fa-save"></i>
+                        Save Category
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delivery Modal -->
+    <div class="admin-modal" id="deliveryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="deliveryModalTitle">Add Delivery Charge</h2>
+                <button class="modal-close" id="deliveryModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="deliveryForm">
+                <input type="hidden" id="deliveryId">
+                <div class="form-group">
+                    <label>District *</label>
+                    <select id="deliveryDistrict" required>
+                        <option value="">Select District</option>
+                        <option value="Colombo">Colombo</option>
+                        <option value="Gampaha">Gampaha</option>
+                        <option value="Kalutara">Kalutara</option>
+                        <option value="Kandy">Kandy</option>
+                        <option value="Matale">Matale</option>
+                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                        <option value="Galle">Galle</option>
+                        <option value="Matara">Matara</option>
+                        <option value="Hambantota">Hambantota</option>
+                        <option value="Jaffna">Jaffna</option>
+                        <option value="Kilinochchi">Kilinochchi</option>
+                        <option value="Mannar">Mannar</option>
+                        <option value="Mullaitivu">Mullaitivu</option>
+                        <option value="Vavuniya">Vavuniya</option>
+                        <option value="Trincomalee">Trincomalee</option>
+                        <option value="Batticaloa">Batticaloa</option>
+                        <option value="Ampara">Ampara</option>
+                        <option value="Kurunegala">Kurunegala</option>
+                        <option value="Puttalam">Puttalam</option>
+                        <option value="Anuradhapura">Anuradhapura</option>
+                        <option value="Polonnaruwa">Polonnaruwa</option>
+                        <option value="Badulla">Badulla</option>
+                        <option value="Monaragala">Monaragala</option>
+                        <option value="Ratnapura">Ratnapura</option>
+                        <option value="Kegalle">Kegalle</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>City (Optional - leave empty for district default)</label>
+                    <input type="text" id="deliveryCity" placeholder="Enter city name">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Charge (Rs.) *</label>
+                    <input type="number" id="deliveryCharge" required min="0" step="0.01">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" id="deliveryCancelBtn">Cancel</button>
+                    <button type="submit" class="save-btn">
+                        <i class="fas fa-save"></i>
+                        Save Charge
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="admin-modal" id="deleteModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Confirm Delete</h2>
+                <button class="modal-close" id="deleteModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" id="deleteCancelBtn">Cancel</button>
+                <button type="button" class="delete-btn" id="deleteConfirmBtn">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="toast-icon"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/jsonbin.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

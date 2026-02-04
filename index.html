@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Danudara Textiles - Premium Quality Textiles in Sri Lanka">
+    <meta name="theme-color" content="#0a1628">
+    <title>Danudara Textiles</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Danudara Textiles" class="logo-img">
+        </div>
+        
+        <div class="top-actions">
+            <div class="language-selector">
+                <select id="languageSelect" aria-label="Select Language">
+                    <option value="en">English</option>
+                    <option value="si">සිංහල</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+            </div>
+            <button class="cart-btn" id="cartBtn" aria-label="Cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Menu -->
+    <nav class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <img src="assets/images/logo.png" alt="Danudara Textiles" class="side-logo">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="side-menu-list">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> <span data-lang="home">Home</span></a></li>
+            <li><a href="shop.html"><i class="fas fa-store"></i> <span data-lang="shop">Shop</span></a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> <span data-lang="cart">Cart</span></a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-lang="about">About</span></a></li>
+            <li><a href="contact.html"><i class="fas fa-phone"></i> <span data-lang="contact">Contact</span></a></li>
+        </ul>
+    </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Banner Slider -->
+        <section class="hero-section">
+            <div class="banner-slider" id="bannerSlider">
+                <!-- Banners loaded from JSONBIN -->
+            </div>
+            <div class="slider-dots" id="sliderDots"></div>
+        </section>
+
+        <!-- Promotions Notice -->
+        <section class="promotions-section" id="promotionsSection">
+            <!-- Loaded from JSONBIN -->
+        </section>
+
+        <!-- Search Bar -->
+        <section class="search-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" data-lang-placeholder="searchPlaceholder" placeholder="Search products...">
+                <button class="search-clear" id="searchClear">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories-section">
+            <h2 class="section-title" data-lang="categories">Categories</h2>
+            <div class="categories-scroll" id="categoriesContainer">
+                <!-- Categories loaded from Supabase -->
+            </div>
+        </section>
+
+        <!-- New Arrivals -->
+        <section class="new-arrivals-section" id="newArrivalsSection">
+            <h2 class="section-title" data-lang="newArrivals">New Arrivals</h2>
+            <div class="products-grid" id="newArrivalsGrid">
+                <!-- Products loaded from Supabase -->
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-section">
+            <h2 class="section-title" data-lang="featuredProducts">Featured Products</h2>
+            <div class="products-grid" id="featuredGrid">
+                <!-- Products loaded from Supabase -->
+            </div>
+        </section>
+
+        <!-- All Products -->
+        <section class="products-section">
+            <h2 class="section-title" data-lang="allProducts">All Products</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products loaded from Supabase -->
+            </div>
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span data-lang="home">Home</span>
+        </a>
+        <a href="shop.html" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span data-lang="shop">Shop</span>
+        </a>
+        <a href="cart.html" class="nav-item cart-nav">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+            <span data-lang="cart">Cart</span>
+        </a>
+        <a href="about.html" class="nav-item">
+            <i class="fas fa-info-circle"></i>
+            <span data-lang="about">About</span>
+        </a>
+        <a href="admin.html" class="nav-item">
+            <i class="fas fa-user-shield"></i>
+            <span data-lang="admin">Admin</span>
+        </a>
+    </nav>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Product details loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="toast-icon"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/jsonbin.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
