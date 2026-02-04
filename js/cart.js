@@ -115,57 +115,57 @@ const Cart = {
     },
 
     // Generate WhatsApp order message
-    generateWhatsAppMessage(customerInfo, deliveryCharge) {
-        const subtotal = this.getSubtotal();
-        const total = subtotal + deliveryCharge;
-        
-        let message = `🛒 *New Order - Danudara Textiles*\n\n`;
-        message += `📱 *Phone:* ${customerInfo.phone}\n`;
-        message += `📍 *District:* ${customerInfo.district}\n`;
-        if (customerInfo.city) {
-            message += `🏙️ *City:* ${customerInfo.city}\n`;
-        }
-        message += `\n━━━━━━━━━━━━━━━━━━\n`;
-        message += `📦 *Order Items:*\n\n`;
-        
-        this.items.forEach((item, index) => {
-            message += `${index + 1}. *${item.name}*\n`;
-            message += `   Qty: ${item.quantity} × Rs.${parseFloat(item.price).toLocaleString()}\n`;
-            message += `   = Rs.${(item.quantity * item.price).toLocaleString()}\n\n`;
-        });
-        
-        message += `━━━━━━━━━━━━━━━━━━\n`;
-        message += `📋 *Subtotal:* Rs.${subtotal.toLocaleString()}\n`;
-        message += `🚚 *Delivery:* Rs.${deliveryCharge.toLocaleString()}\n`;
-        message += `💰 *Total:* Rs.${total.toLocaleString()}\n`;
-        message += `━━━━━━━━━━━━━━━━━━\n\n`;
-        message += `Thank you for shopping with Danudara Textiles! 🙏`;
-        
-        return encodeURIComponent(message);
-    },
-
-    // Open WhatsApp with order
-    checkout(customerInfo, deliveryCharge) {
-        if (this.items.length === 0) {
-            if (typeof showToast === 'function') {
-                showToast('error', 'Your cart is empty');
-            }
-            return;
-        }
-        
-        const message = this.generateWhatsAppMessage(customerInfo, deliveryCharge);
-        const whatsappNumber = (typeof CONFIG !== 'undefined' && CONFIG.WHATSAPP_NUMBER) 
-            ? CONFIG.WHATSAPP_NUMBER 
-            : '94112345678';
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-        
-        // Open WhatsApp
-        window.open(whatsappUrl, '_blank');
-        
-        // Clear cart after checkout
-        // this.clear(); // Uncomment if you want to clear cart after checkout
+// Generate WhatsApp order message - UPDATED WITH PAYMENT METHOD
+generateWhatsAppMessage(customerInfo, deliveryCharge, paymentMethod = null) {
+    const subtotal = this.getSubtotal();
+    const total = subtotal + deliveryCharge;
+    
+    let message = `🛒 *New Order - Danudara Textiles*\n\n`;
+    message += `📱 *Phone:* ${customerInfo.phone}\n`;
+    message += `📍 *District:* ${customerInfo.district}\n`;
+    if (customerInfo.city) {
+        message += `🏙️ *City:* ${customerInfo.city}\n`;
     }
-};
+    if (paymentMethod) {
+        message += `💳 *Payment:* ${paymentMethod}\n`;
+    }
+    message += `\n━━━━━━━━━━━━━━━━━━\n`;
+    message += `📦 *Order Items:*\n\n`;
+    
+    this.items.forEach((item, index) => {
+        message += `${index + 1}. *${item.name}*\n`;
+        message += `   Qty: ${item.quantity} × Rs.${parseFloat(item.price).toLocaleString()}\n`;
+        message += `   = Rs.${(item.quantity * item.price).toLocaleString()}\n\n`;
+    });
+    
+    message += `━━━━━━━━━━━━━━━━━━\n`;
+    message += `📋 *Subtotal:* Rs.${subtotal.toLocaleString()}\n`;
+    message += `🚚 *Delivery:* Rs.${deliveryCharge.toLocaleString()}\n`;
+    message += `💰 *Total:* Rs.${total.toLocaleString()}\n`;
+    message += `━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `Thank you for shopping with Danudara Textiles! 🙏`;
+    
+    return encodeURIComponent(message);
+},
+
+// Open WhatsApp with order - UPDATED
+checkout(customerInfo, deliveryCharge, paymentMethod = null) {
+    if (this.items.length === 0) {
+        if (typeof showToast === 'function') {
+            showToast('error', 'Your cart is empty');
+        }
+        return;
+    }
+    
+    const message = this.generateWhatsAppMessage(customerInfo, deliveryCharge, paymentMethod);
+    const whatsappNumber = (typeof CONFIG !== 'undefined' && CONFIG.WHATSAPP_NUMBER) 
+        ? CONFIG.WHATSAPP_NUMBER 
+        : '94112345678';
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+}
 
 // Initialize cart when DOM is ready
 if (document.readyState === 'loading') {
