@@ -493,46 +493,60 @@
     }
     
     async function loadPaymentMethods() {
-        try {
-            const methods = await PaymentService.getActive();
-            const container = document.getElementById('paymentMethods');
-            
-            if (!methods || methods.length === 0) {
-                container.innerHTML = '<p style="color: var(--gray-600);">Payment instructions will be provided via WhatsApp.</p>';
-                return;
-            }
-            
-            const icons = {
-                'bank_transfer': 'fa-building-columns',
-                'koko_pay': 'fa-credit-card',
-                'card_payment': 'fa-credit-card'
-            };
-            
-            container.innerHTML = `
-                <h3 style="margin-bottom: var(--space-md); font-size: var(--font-size-base); color: var(--gray-600);">${getTranslation('paymentMethods')}</h3>
-                ${methods.map((method, index) => `
-                    <div class="payment-method ${index === 0 ? 'selected' : ''}" data-method="${method.id}">
-                        <div class="payment-method-icon">
-                            <i class="fas ${icons[method.type] || 'fa-money-bill'}"></i>
-                        </div>
-                        <div class="payment-method-info">
-                            <h4>${method.name}</h4>
-                            <p>${method.description || ''}</p>
-                        </div>
-                    </div>
-                `).join('')}
-            `;
-            
-            container.querySelectorAll('.payment-method').forEach(method => {
-                method.addEventListener('click', () => {
-                    container.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-                    method.classList.add('selected');
-                });
-            });
-        } catch (error) {
-            console.error('Error loading payment methods:', error);
+    try {
+        const methods = await PaymentService.getActive();
+        const container = document.getElementById('paymentMethods');
+        
+        if (!methods || methods.length === 0) {
+            container.innerHTML = '<p style="color: var(--gray-600);">Payment instructions will be provided via WhatsApp.</p>';
+            return;
         }
+        
+        const icons = {
+            'cod': 'fa-money-bill-wave',
+            'bank_transfer': 'fa-building-columns',
+            'koko_pay': 'fa-credit-card',
+            'card_payment': 'fa-credit-card'
+        };
+        
+        const colors = {
+            'cod': '#10b981',
+            'bank_transfer': '#3b82f6',
+            'koko_pay': '#8b5cf6',
+            'card_payment': '#f59e0b'
+        };
+        
+        container.innerHTML = `
+            <h3 style="margin-bottom: var(--space-md); font-size: var(--font-size-base); color: var(--gray-600);">
+                ${getTranslation('paymentMethods')}
+            </h3>
+            ${methods.map((method, index) => `
+                <div class="payment-method ${index === 0 ? 'selected' : ''}" data-method="${method.id}" data-type="${method.type}">
+                    <div class="payment-method-icon" style="background: ${colors[method.type]}20; color: ${colors[method.type]};">
+                        <i class="fas ${icons[method.type] || 'fa-money-bill'}"></i>
+                    </div>
+                    <div class="payment-method-info">
+                        <h4>${method.name}</h4>
+                        <p>${method.description || ''}</p>
+                        ${method.type === 'bank_transfer' && method.details ? `
+                            <small style="color: var(--gray-400); white-space: pre-line; margin-top: 4px; display: block;">${method.details}</small>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('')}
+        `;
+        
+        // Add click handlers
+        container.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', () => {
+                container.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+            });
+        });
+    } catch (error) {
+        console.error('Error loading payment methods:', error);
     }
+}
     
     function renderCart() {
         const cartItems = document.getElementById('cartItems');
