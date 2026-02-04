@@ -735,7 +735,7 @@ function confirmDeleteDeliveryCharge(id) {
     document.getElementById('deleteModal').classList.add('active');
 }
 
-// ========== Payment Methods ==========
+// ========== Payment Methods - UPDATED WITH COD ==========
 async function loadPaymentMethods() {
     try {
         const methods = await PaymentService.getAll();
@@ -749,15 +749,27 @@ async function loadPaymentMethods() {
         }
         
         const icons = {
+            'cod': 'fa-money-bill-wave',
             'bank_transfer': 'fa-building-columns',
             'koko_pay': 'fa-credit-card',
             'card_payment': 'fa-credit-card'
         };
         
+        const colors = {
+            'cod': '#10b981',
+            'bank_transfer': '#3b82f6',
+            'koko_pay': '#8b5cf6',
+            'card_payment': '#f59e0b'
+        };
+        
         container.innerHTML = methods.map(method => `
             <div class="payment-card" data-id="${method.id}">
                 <div class="payment-card-header">
-                    <h3><i class="fas ${icons[method.type] || 'fa-money-bill'}" style="margin-right: 8px; color: var(--primary-blue);"></i>${method.name}</h3>
+                    <h3>
+                        <i class="fas ${icons[method.type] || 'fa-money-bill'}" 
+                           style="margin-right: 8px; color: ${colors[method.type] || 'var(--primary-blue)'};"></i>
+                        ${method.name}
+                    </h3>
                     <label class="toggle-switch">
                         <input type="checkbox" ${method.is_active ? 'checked' : ''} 
                                onchange="togglePaymentMethod('${method.id}', this.checked)">
@@ -766,20 +778,33 @@ async function loadPaymentMethods() {
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea rows="2" onchange="updatePaymentDescription('${method.id}', this.value)">${method.description || ''}</textarea>
+                    <textarea rows="2" 
+                              placeholder="Enter description for customers..."
+                              onchange="updatePaymentDescription('${method.id}', this.value)">${method.description || ''}</textarea>
                 </div>
                 ${method.type === 'bank_transfer' ? `
                     <div class="form-group">
-                        <label>Bank Details</label>
-                        <textarea rows="3" onchange="updatePaymentDetails('${method.id}', this.value)">${method.details || ''}</textarea>
+                        <label>Bank Details (Account Number, Bank Name, Branch)</label>
+                        <textarea rows="4" 
+                                  placeholder="Bank: XYZ Bank&#10;Account: 1234567890&#10;Branch: Main Branch&#10;Name: Danudara Textiles"
+                                  onchange="updatePaymentDetails('${method.id}', this.value)">${method.details || ''}</textarea>
+                    </div>
+                ` : ''}
+                ${method.type === 'cod' ? `
+                    <div class="form-group">
+                        <label>COD Instructions</label>
+                        <textarea rows="2" 
+                                  placeholder="Additional instructions for COD..."
+                                  onchange="updatePaymentDetails('${method.id}', this.value)">${method.details || ''}</textarea>
                     </div>
                 ` : ''}
             </div>
         `).join('');
     } catch (error) {
         console.error('Error loading payment methods:', error);
+        showToast('error', 'Failed to load payment methods');
     }
-}
+            }
 
 async function togglePaymentMethod(id, isActive) {
     try {
