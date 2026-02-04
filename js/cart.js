@@ -1,40 +1,181 @@
-// js/cart.js
+// js/cart.js - FIXED VERSION
 
 const Cart = {
     items: [],
     
     // Initialize cart from localStorage
     init() {
-        const savedCart = localStorage.getItem('danudara_cart');
-        if (savedCart) {
-            this.items = JSON.parse(savedCart);
+        try {
+            const savedCart = localStorage.getItem('danudara_cart');
+            if (savedCart) {
+                this.items = JSON.parse(savedCart);
+            } else {
+                this.items = [];
+            }
+        } catch (error) {
+            console.error('Error loading cart:', error);
+            this.items = [];
         }
         this.updateCartUI();
+        return this;
     },
 
     // Save cart to localStorage
     save() {
-        localStorage.setItem('danudara_cart', JSON.stringify(this.items));
+        try {
+            localStorage.setItem('danudara_cart', JSON.stringify(this.items));
+        } catch (error) {
+            console.error('Error saving cart:', error);
+        }
         this.updateCartUI();
     },
 
     // Add item to cart
     addItem(product, quantity = 1) {
-        const existingItem = this.items.find(item => item.id === product.id);
+        if (!product || !product.id) {
+            console.error('Invalid product:', product);
+            return;
+        }
         
-        if (existingItem) {
-            existingItem.quantity += quantity;
+        const existingIndex = this.items.findIndex(item => item.id === product.id);
+        
+        if (existingIndex >= 0) {
+            this.items[existingIndex].quantity += quantity;
         } else {
             this.items.push({
                 id: product.id,
                 name: product.name,
-                name_si: product.name_si,
-                name_ta: product.name_ta,
-                price: product.price,
-                original_price: product.original_price,
-                image: product.image_url,
+                name_si: product.name_si || null,
+                name_ta: product.name_ta || null,
+                price: parseFloat(product.price),
+                original_price: product.original_price ? parseFloat(product.original_price) : null,
+                image: product.image_url || product.image || 'assets/images/placeholder.jpg',
                 quantity: quantity
             });
+        }
+        
+        this.save();
+        
+        if (typeof showToast === 'function') {
+            showToast('success', 'Item added to cart');
+        }
+    },
+
+    // Remove item from cart
+    removeItem(productId) {
+        this.items = this.items.filter(item => item.id !== productId);
+        this.save();
+        
+        if (typeof showToast === 'function') {
+            showToast('success', 'Item removed from cart');
+        }
+    },
+
+    // Update item quantity
+    updateQuantity(productId, quantity) {
+        const itemIndex = this.items.findIndex(item => item.id === productId);
+        
+        if (itemIndex >= 0) {
+            if (quantity <= 0) {
+                this.removeItem(productId);
+            } else {
+                this.items[itemIndex].quantity = quantity;
+                this.save();
+            }
+        }
+    },
+
+    // Get cart subtotal
+    getSubtotal() {
+        return this.items.reduce((total, item) => {
+            return total + (parseFloat(item.price) * parseInt(item.quantity));
+        }, 0);
+    },
+
+    // Get total items count
+    getItemCount() {
+        return this.items.reduce((count, item) => count + parseInt(item.quantity), 0);
+    },
+
+    // Clear cart
+    clear() {
+        this.items = [];
+        this.save();
+    },
+
+    // Update cart badges/counts in UI
+    updateCartUI() {
+        const count = this.getItemCount();
+        
+        // Update all cart count elements
+        const cartCountElements = document.querySelectorAll('#cartCount, #cartBadge, .cart-count, .cart-badge');
+        cartCountElements.forEach(el => {
+            if (el) el.textContent = count;
+        });
+    },
+
+    // Generate WhatsApp order message
+    generateWhatsAppMessage(customerInfo, deliveryCharge) {
+        const subtotal = this.getSubtotal();
+        const total = subtotal + deliveryCharge;
+        
+        let message = `🛒 *New Order - Danudara Textiles*\n\n`;
+        message += `📱 *Phone:* ${customerInfo.phone}\n`;
+        message += `📍 *District:* ${customerInfo.district}\n`;
+        if (customerInfo.city) {
+            message += `🏙️ *City:* ${customerInfo.city}\n`;
+        }
+        message += `\n━━━━━━━━━━━━━━━━━━\n`;
+        message += `📦 *Order Items:*\n\n`;
+        
+        this.items.forEach((item, index) => {
+            message += `${index + 1}. *${item.name}*\n`;
+            message += `   Qty: ${item.quantity} × Rs.${parseFloat(item.price).toLocaleString()}\n`;
+            message += `   = Rs.${(item.quantity * item.price).toLocaleString()}\n\n`;
+        });
+        
+        message += `━━━━━━━━━━━━━━━━━━\n`;
+        message += `📋 *Subtotal:* Rs.${subtotal.toLocaleString()}\n`;
+        message += `🚚 *Delivery:* Rs.${deliveryCharge.toLocaleString()}\n`;
+        message += `💰 *Total:* Rs.${total.toLocaleString()}\n`;
+        message += `━━━━━━━━━━━━━━━━━━\n\n`;
+        message += `Thank you for shopping with Danudara Textiles! 🙏`;
+        
+        return encodeURIComponent(message);
+    },
+
+    // Open WhatsApp with order
+    checkout(customerInfo, deliveryCharge) {
+        if (this.items.length === 0) {
+            if (typeof showToast === 'function') {
+                showToast('error', 'Your cart is empty');
+            }
+            return;
+        }
+        
+        const message = this.generateWhatsAppMessage(customerInfo, deliveryCharge);
+        const whatsappNumber = (typeof CONFIG !== 'undefined' && CONFIG.WHATSAPP_NUMBER) 
+            ? CONFIG.WHATSAPP_NUMBER 
+            : '94112345678';
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+        
+        // Open WhatsApp
+        window.open(whatsappUrl, '_blank');
+        
+        // Clear cart after checkout
+        // this.clear(); // Uncomment if you want to clear cart after checkout
+    }
+};
+
+// Initialize cart when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => Cart.init());
+} else {
+    Cart.init();
+}
+
+// Make Cart globally available
+window.Cart = Cart;            });
         }
         
         this.save();
