@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Danudara Textiles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <style>
+        .shop-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+        .shop-header h1 {
+            font-size: var(--font-size-2xl);
+            color: var(--primary-dark);
+        }
+        .filter-bar {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+        .filter-bar select {
+            padding: var(--space-sm) var(--space-md);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            background: var(--white);
+            cursor: pointer;
+        }
+        .filter-bar select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+        .products-count {
+            color: var(--gray-600);
+            font-size: var(--font-size-sm);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/images/logo.png" alt="Danudara Textiles" class="logo-img">
+            </a>
+        </div>
+        <div class="top-actions">
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="si">සිංහල</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+            </div>
+            <button class="cart-btn" id="cartBtn" aria-label="Cart">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Menu -->
+    <nav class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <img src="assets/images/logo.png" alt="Danudara Textiles" class="side-logo">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="side-menu-list">
+            <li><a href="index.html"><i class="fas fa-home"></i> <span data-lang="home">Home</span></a></li>
+            <li><a href="shop.html" class="active"><i class="fas fa-store"></i> <span data-lang="shop">Shop</span></a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> <span data-lang="cart">Cart</span></a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-lang="about">About</span></a></li>
+            <li><a href="contact.html"><i class="fas fa-phone"></i> <span data-lang="contact">Contact</span></a></li>
+        </ul>
+    </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="shop-header">
+            <h1 data-lang="shop">Shop</h1>
+            <div class="filter-bar">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                </select>
+                <select id="sortFilter">
+                    <option value="newest">Newest First</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A-Z</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <section class="search-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button class="search-clear" id="searchClear">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </section>
+
+        <p class="products-count" id="productsCount">Loading products...</p>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            <!-- Products loaded dynamically -->
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span data-lang="home">Home</span>
+        </a>
+        <a href="shop.html" class="nav-item active">
+            <i class="fas fa-store"></i>
+            <span data-lang="shop">Shop</span>
+        </a>
+        <a href="cart.html" class="nav-item cart-nav">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+            <span data-lang="cart">Cart</span>
+        </a>
+        <a href="about.html" class="nav-item">
+            <i class="fas fa-info-circle"></i>
+            <span data-lang="about">About</span>
+        </a>
+        <a href="admin.html" class="nav-item">
+            <i class="fas fa-user-shield"></i>
+            <span data-lang="admin">Admin</span>
+        </a>
+    </nav>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="toast-icon"></i>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/jsonbin.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Shop page specific code
+        let allProducts = [];
+        let categories = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initLanguage();
+            await loadCategories();
+            await loadProducts();
+            initShopEvents();
+            initMenuEvents();
+        });
+
+        async function loadCategories() {
+            categories = await CategoryService.getAll();
+            const filter = document.getElementById('categoryFilter');
+            filter.innerHTML = '<option value="">All Categories</option>' +
+                categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
+            
+            // Check URL params for category
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryId = urlParams.get('category');
+            if (categoryId) {
+                filter.value = categoryId;
+            }
+        }
+
+        async function loadProducts() {
+            showLoading(true);
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const categoryId = urlParams.get('category');
+                
+                if (categoryId) {
+                    allProducts = await ProductService.getByCategory(categoryId);
+                } else {
+                    allProducts = await ProductService.getAll();
+                }
+                renderProducts(allProducts);
+            } catch (error) {
+                console.error('Error loading products:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            document.getElementById('productsCount').textContent = `${products.length} products found`;
+
+            if (products.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                        <i class="fas fa-box-open" style="font-size: 3rem; color: var(--gray-300); margin-bottom: 1rem;"></i>
+                        <p style="color: var(--gray-600);">No products found</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = products.map(product => createProductCard(product)).join('');
+            addProductCardListeners(grid);
+        }
+
+        function createProductCard(product) {
+            const lang = getCurrentLanguage();
+            const name = lang === 'si' ? (product.name_si || product.name) :
+                        lang === 'ta' ? (product.name_ta || product.name) : product.name;
+            
+            const hasDiscount = product.original_price && product.original_price > product.price;
+            const discountPercent = hasDiscount ? 
+                Math.round((1 - product.price / product.original_price) * 100) : 0;
+
+            return `
+                <div class="product-card" data-product-id="${product.id}">
+                    <div class="product-image">
+                        <img src="${product.image_url || 'assets/images/placeholder.jpg'}" alt="${name}" loading="lazy">
+                        ${hasDiscount ? `<span class="product-badge" style="background: var(--error); color: white;">-${discountPercent}%</span>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${name}</h3>
+                        <div class="product-price">
+                            <span class="price-current">${CONFIG.CURRENCY_SYMBOL} ${product.price.toLocaleString()}</span>
+                            ${hasDiscount ? `<span class="price-original">${CONFIG.CURRENCY_SYMBOL} ${product.original_price.toLocaleString()}</span>` : ''}
+                        </div>
+                        <button class="add-to-cart-btn ripple" data-product-id="${product.id}">
+                            <i class="fas fa-cart-plus"></i>
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function addProductCardListeners(container) {
+            container.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.add-to-cart-btn')) {
+                        openProductModal(card.dataset.productId);
+                    }
+                });
+            });
+
+            container.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const product = allProducts.find(p => p.id === btn.dataset.productId);
+                    if (product) {
+                        Cart.addItem(product);
+                    }
+                });
+            });
+        }
+
+        async function openProductModal(productId) {
+            const product = await ProductService.getById(productId);
+            const lang = getCurrentLanguage();
+            const name = lang === 'si' ? (product.name_si || product.name) :
+                        lang === 'ta' ? (product.name_ta || product.name) : product.name;
+            const description = lang === 'si' ? (product.description_si || product.description) :
+                               lang === 'ta' ? (product.description_ta || product.description) : product.description;
+
+            document.getElementById('modalBody').innerHTML = `
+                <div class="modal-product-image">
+                    <img src="${product.image_url || 'assets/images/placeholder.jpg'}" alt="${name}">
+                </div>
+                <h2 class="modal-product-name">${name}</h2>
+                <div class="modal-product-price">${CONFIG.CURRENCY_SYMBOL} ${product.price.toLocaleString()}</div>
+                <p class="modal-product-description">${description || 'No description available.'}</p>
+                <div class="quantity-selector">
+                    <label>Quantity</label>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" id="qtyMinus"><i class="fas fa-minus"></i></button>
+                        <input type="number" class="quantity-input" id="qtyInput" value="1" min="1">
+                        <button class="quantity-btn" id="qtyPlus"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <button class="modal-add-btn" id="modalAddBtn">
+                    <i class="fas fa-cart-plus"></i>
+                    Add to Cart
+                </button>
+            `;
+
+            document.getElementById('qtyMinus').onclick = () => {
+                const input = document.getElementById('qtyInput');
+                if (input.value > 1) input.value--;
+            };
+            document.getElementById('qtyPlus').onclick = () => {
+                document.getElementById('qtyInput').value++;
+            };
+            document.getElementById('modalAddBtn').onclick = () => {
+                Cart.addItem(product, parseInt(document.getElementById('qtyInput').value));
+                document.getElementById('productModal').classList.remove('active');
+            };
+
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function initShopEvents() {
+            // Search
+            const searchInput = document.getElementById('searchInput');
+            const searchClear = document.getElementById('searchClear');
+            let searchTimeout;
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value;
+                searchClear.classList.toggle('visible', query.length > 0);
+                
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    if (query.length >= 2) {
+                        const filtered = allProducts.filter(p => 
+                            p.name.toLowerCase().includes(query.toLowerCase()) ||
+                            (p.description && p.description.toLowerCase().includes(query.toLowerCase()))
+                        );
+                        renderProducts(filtered);
+                    } else {
+                        renderProducts(allProducts);
+                    }
+                }, 300);
+            });
+
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchClear.classList.remove('visible');
+                renderProducts(allProducts);
+            });
+
+            // Category filter
+            document.getElementById('categoryFilter').addEventListener('change', async (e) => {
+                const categoryId = e.target.value;
+                showLoading(true);
+                if (categoryId) {
+                    allProducts = await ProductService.getByCategory(categoryId);
+                } else {
+                    allProducts = await ProductService.getAll();
+                }
+                renderProducts(allProducts);
+                showLoading(false);
+            });
+
+            // Sort filter
+            document.getElementById('sortFilter').addEventListener('change', (e) => {
+                const sortBy = e.target.value;
+                let sorted = [...allProducts];
+                
+                switch(sortBy) {
+                    case 'price-low':
+                        sorted.sort((a, b) => a.price - b.price);
+                        break;
+                    case 'price-high':
+                        sorted.sort((a, b) => b.price - a.price);
+                        break;
+                    case 'name':
+                        sorted.sort((a, b) => a.name.localeCompare(b.name));
+                        break;
+                    case 'newest':
+                    default:
+                        sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                }
+                renderProducts(sorted);
+            });
+
+            // Modal close
+            document.getElementById('modalClose').addEventListener('click', () => {
+                document.getElementById('productModal').classList.remove('active');
+            });
+            document.getElementById('productModal').addEventListener('click', (e) => {
+                if (e.target.id === 'productModal') {
+                    document.getElementById('productModal').classList.remove('active');
+                }
+            });
+
+            // Cart button
+            document.getElementById('cartBtn').addEventListener('click', () => {
+                window.location.href = 'cart.html';
+            });
+        }
+
+        function initMenuEvents() {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeMenu = document.getElementById('closeMenu');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+
+            menuBtn.addEventListener('click', () => {
+                sideMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+            });
+
+            const closeSideMenu = () => {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            };
+
+            closeMenu.addEventListener('click', closeSideMenu);
+            menuOverlay.addEventListener('click', closeSideMenu);
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingSpinner').style.display = show ? 'flex' : 'none';
+        }
+
+        function showToast(type, message) {
+            const toast = document.getElementById('toast');
+            toast.className = `toast ${type}`;
+            toast.querySelector('.toast-message').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        window.showToast = showToast;
+    </script>
+</body>
+</html>

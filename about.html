@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Danudara Textiles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .about-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+        .about-header h1 {
+            font-size: var(--font-size-3xl);
+            color: var(--primary-dark);
+            margin-bottom: var(--space-md);
+        }
+        .about-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--space-xl);
+        }
+        .about-content {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+        .about-content p {
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: var(--space-lg);
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+        .feature-card {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--off-white);
+            border-radius: var(--radius-lg);
+        }
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: var(--space-md);
+        }
+        .feature-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: var(--space-sm);
+        }
+        .feature-card p {
+            color: var(--gray-600);
+            font-size: var(--font-size-sm);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <button class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/images/logo.png" alt="Danudara Textiles" class="logo-img">
+            </a>
+        </div>
+        <div class="top-actions">
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="si">සිංහල</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+            </div>
+            <button class="cart-btn" id="cartBtn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Menu -->
+    <nav class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <img src="assets/images/logo.png" alt="Danudara Textiles" class="side-logo">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="side-menu-list">
+            <li><a href="index.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+            <li><a href="shop.html"><i class="fas fa-store"></i> <span>Shop</span></a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> <span>Cart</span></a></li>
+            <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> <span>About</span></a></li>
+            <li><a href="contact.html"><i class="fas fa-phone"></i> <span>Contact</span></a></li>
+        </ul>
+    </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="about-container">
+            <div class="about-header">
+                <h1 id="aboutTitle">About Danudara Textiles</h1>
+            </div>
+            
+            <img src="assets/images/about.jpg" alt="About Us" class="about-image" id="aboutImage" onerror="this.style.display='none'">
+            
+            <div class="about-content">
+                <div id="aboutContent">
+                    <p>Loading...</p>
+                </div>
+                
+                <div class="about-features">
+                    <div class="feature-card">
+                        <i class="fas fa-award"></i>
+                        <h3>Premium Quality</h3>
+                        <p>Only the finest textiles sourced from trusted suppliers</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-truck"></i>
+                        <h3>Island-wide Delivery</h3>
+                        <p>We deliver to all districts in Sri Lanka</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>Customer Support</h3>
+                        <p>Dedicated support via WhatsApp</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-tags"></i>
+                        <h3>Best Prices</h3>
+                        <p>Competitive prices with regular promotions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="shop.html" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span>Shop</span>
+        </a>
+        <a href="cart.html" class="nav-item cart-nav">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+            <span>Cart</span>
+        </a>
+        <a href="about.html" class="nav-item active">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
+        <a href="admin.html" class="nav-item">
+            <i class="fas fa-user-shield"></i>
+            <span>Admin</span>
+        </a>
+    </nav>
+
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/jsonbin.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initLanguage();
+            await loadAboutContent();
+            initMenuEvents();
+        });
+
+        async function loadAboutContent() {
+            try {
+                const about = await JSONBinService.getSection('about');
+                const lang = getCurrentLanguage();
+                
+                if (about) {
+                    document.getElementById('aboutTitle').textContent = 
+                        about.title?.[lang] || about.title?.en || 'About Danudara Textiles';
+                    
+                    const content = about.content?.[lang] || about.content?.en || '';
+                    document.getElementById('aboutContent').innerHTML = 
+                        content.split('\n').map(p => `<p>${p}</p>`).join('');
+                    
+                    if (about.image) {
+                        document.getElementById('aboutImage').src = about.image;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading about content:', error);
+            }
+        }
+
+        function initMenuEvents() {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeMenu = document.getElementById('closeMenu');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+
+            menuBtn.addEventListener('click', () => {
+                sideMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+            });
+
+            const closeSideMenu = () => {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            };
+
+            closeMenu.addEventListener('click', closeSideMenu);
+            menuOverlay.addEventListener('click', closeSideMenu);
+
+            document.getElementById('cartBtn').addEventListener('click', () => {
+                window.location.href = 'cart.html';
+            });
+        }
+    </script>
+</body>
+</html>
