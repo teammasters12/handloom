@@ -710,31 +710,35 @@
         });
         
         checkoutForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const phone = document.getElementById('phoneInput').value.trim();
-            const district = districtSelect.value;
-            const city = citySelect.value;
-            
-            if (!phone) {
-                showToast('error', 'Please enter your phone number');
-                return;
-            }
-            
-            if (!district) {
-                showToast('error', 'Please select your district');
-                return;
-            }
-            
-            if (Cart.items.length === 0) {
-                showToast('error', 'Your cart is empty');
-                return;
-            }
-            
-            const customerInfo = { phone, district, city };
-            Cart.checkout(customerInfo, currentDeliveryCharge);
-        });
+    e.preventDefault();
+    
+    const phone = document.getElementById('phoneInput').value.trim();
+    const district = districtSelect.value;
+    const city = citySelect.value;
+    
+    // Get selected payment method
+    const selectedPayment = document.querySelector('.payment-method.selected');
+    const paymentMethodName = selectedPayment ? 
+        selectedPayment.querySelector('h4')?.textContent : 'Not specified';
+    
+    if (!phone) {
+        showToast('error', 'Please enter your phone number');
+        return;
     }
+    
+    if (!district) {
+        showToast('error', 'Please select your district');
+        return;
+    }
+    
+    if (Cart.items.length === 0) {
+        showToast('error', 'Your cart is empty');
+        return;
+    }
+    
+    const customerInfo = { phone, district, city };
+    Cart.checkout(customerInfo, currentDeliveryCharge, paymentMethodName);
+});
     
     function updateSummary() {
         const subtotal = Cart.getSubtotal();
