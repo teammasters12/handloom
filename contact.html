@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Danudara Textiles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+        .contact-header h1 {
+            font-size: var(--font-size-3xl);
+            color: var(--primary-dark);
+        }
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+        .contact-card {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition-fast);
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: var(--space-md);
+        }
+        .contact-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: var(--space-sm);
+        }
+        .contact-card p {
+            color: var(--gray-600);
+            margin-bottom: var(--space-md);
+        }
+        .contact-card a {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--gradient-blue);
+            color: var(--primary-dark);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+        .contact-card a:hover {
+            box-shadow: var(--shadow-glow);
+        }
+        .whatsapp-btn {
+            background: #25D366 !important;
+            color: white !important;
+        }
+        .map-container {
+            background: var(--white);
+            padding: var(--space-lg);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+        .map-container h2 {
+            color: var(--primary-dark);
+            margin-bottom: var(--space-md);
+        }
+        .address-text {
+            color: var(--gray-600);
+            line-height: 1.8;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+        .social-link {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            color: var(--gray-600);
+            font-size: var(--font-size-xl);
+            transition: var(--transition-fast);
+        }
+        .social-link:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <button class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/images/logo.png" alt="Danudara Textiles" class="logo-img">
+            </a>
+        </div>
+        <div class="top-actions">
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="si">සිංහල</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+            </div>
+            <button class="cart-btn" id="cartBtn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Side Menu -->
+    <nav class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <img src="assets/images/logo.png" alt="Danudara Textiles" class="side-logo">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="side-menu-list">
+            <li><a href="index.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+            <li><a href="shop.html"><i class="fas fa-store"></i> <span>Shop</span></a></li>
+            <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> <span>Cart</span></a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> <span>About</span></a></li>
+            <li><a href="contact.html" class="active"><i class="fas fa-phone"></i> <span>Contact</span></a></li>
+        </ul>
+    </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h1>Contact Us</h1>
+                <p style="color: var(--gray-600);">We'd love to hear from you!</p>
+            </div>
+            
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p id="whatsappNumber">+94 XX XXX XXXX</p>
+                    <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat Now
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p id="phoneNumber">+94 XX XXX XXXX</p>
+                    <a href="#" id="phoneLink">
+                        <i class="fas fa-phone"></i> Call Us
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p id="emailAddress">info@example.com</p>
+                    <a href="#" id="emailLink">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </a>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <h2><i class="fas fa-map-marker-alt" style="color: var(--primary-blue);"></i> Our Location</h2>
+                <p class="address-text" id="addressText">Loading address...</p>
+                
+                <div class="social-links" id="socialLinks">
+                    <!-- Social links loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="shop.html" class="nav-item">
+            <i class="fas fa-store"></i>
+            <span>Shop</span>
+        </a>
+        <a href="cart.html" class="nav-item cart-nav">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+            <span>Cart</span>
+        </a>
+        <a href="about.html" class="nav-item">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
+        <a href="admin.html" class="nav-item">
+            <i class="fas fa-user-shield"></i>
+            <span>Admin</span>
+        </a>
+    </nav>
+
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/jsonbin.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initLanguage();
+            await loadContactInfo();
+            initMenuEvents();
+        });
+
+        async function loadContactInfo() {
+            try {
+                const contact = await JSONBinService.getSection('contact');
+                const lang = getCurrentLanguage();
+                
+                if (contact) {
+                    // Phone
+                    if (contact.phone) {
+                        document.getElementById('phoneNumber').textContent = contact.phone;
+                        document.getElementById('phoneLink').href = `tel:${contact.phone.replace(/\s/g, '')}`;
+                    }
+                    
+                    // WhatsApp
+                    if (contact.whatsapp) {
+                        const formattedWhatsapp = contact.whatsapp.startsWith('+') ? contact.whatsapp : `+${contact.whatsapp}`;
+                        document.getElementById('whatsappNumber').textContent = formattedWhatsapp;
+                        document.getElementById('whatsappLink').href = `https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`;
+                    }
+                    
+                    // Email
+                    if (contact.email) {
+                        document.getElementById('emailAddress').textContent = contact.email;
+                        document.getElementById('emailLink').href = `mailto:${contact.email}`;
+                    }
+                    
+                    // Address
+                    const address = contact.address?.[lang] || contact.address?.en || '';
+                    document.getElementById('addressText').textContent = address || 'Address not available';
+                    
+                    // Social Media
+                    const socialLinks = document.getElementById('socialLinks');
+                    let socialHTML = '';
+                    
+                    if (contact.socialMedia?.facebook) {
+                        socialHTML += `<a href="${contact.socialMedia.facebook}" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>`;
+                    }
+                    if (contact.socialMedia?.instagram) {
+                        socialHTML += `<a href="${contact.socialMedia.instagram}" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>`;
+                    }
+                    if (contact.socialMedia?.youtube) {
+                        socialHTML += `<a href="${contact.socialMedia.youtube}" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>`;
+                    }
+                    
+                    socialLinks.innerHTML = socialHTML || '<p style="color: var(--gray-300);">No social media links available</p>';
+                }
+            } catch (error) {
+                console.error('Error loading contact info:', error);
+            }
+        }
+
+        function initMenuEvents() {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeMenu = document.getElementById('closeMenu');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+
+            menuBtn.addEventListener('click', () => {
+                sideMenu.classList.add('active');
+                menuOverlay.classList.add('active');
+            });
+
+            const closeSideMenu = () => {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            };
+
+            closeMenu.addEventListener('click', closeSideMenu);
+            menuOverlay.addEventListener('click', closeSideMenu);
+
+            document.getElementById('cartBtn').addEventListener('click', () => {
+                window.location.href = 'cart.html';
+            });
+        }
+    </script>
+</body>
+</html>
