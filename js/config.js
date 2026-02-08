@@ -10,7 +10,7 @@ const CONFIG = {
     JSONBIN_API_KEY: '$2a$10$w/jE4KCGRXsMjzQnbUF3U.MxriBPMgIhkiItih1MUvPHE7b6WPin2',
     
     // WhatsApp Configuration
-    WHATSAPP_NUMBER: '94785151171',
+    WHATSAPP_NUMBER: '94714620173',
     
     // Currency
     CURRENCY: 'LKR',
