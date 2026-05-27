@@ -985,6 +985,7 @@ input, select, textarea {
     }
 }
 
-.table6c,.table8c{
-    font-size:80px;
+.table6c,
+.table8c {
+    font-size: 80px !important;
 }
