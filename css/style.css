@@ -404,9 +404,9 @@ input, select, textarea {
 }
 
 .search-icon {
-    position: relative;
-    /*left: 18px;
-    top: 60%;*/
+    position: absolute;
+    left: 18px;
+    top: 60%;
     transform: translateY(-50%);
     color: var(--gray-300);
 }
