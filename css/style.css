@@ -406,7 +406,7 @@ input, select, textarea {
 .fa-magnifying-glass {
     position: absolute;
     left: 18px;
-    top: 60%;
+    top: 50%;
     transform: translateY(-50%);
     color: var(--gray-300);
 }
