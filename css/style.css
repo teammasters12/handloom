@@ -1,7 +1,5 @@
 /* css/style.css */
-#searchInput{
-    padding-left:50px;
-}
+
 /* ========== CSS Variables ========== */
 :root {
     /* Brand Colors from Logo */
@@ -385,7 +383,7 @@ input, select, textarea {
 
 .search-container {
     position: relative;
-    max-width: 500px;
+    max-width: 520px;
     margin: 0 auto;
 }
 
@@ -406,9 +404,9 @@ input, select, textarea {
 }
 
 .search-icon {
-    position: absolute;
-    left: 18px;
-    top: 50%;
+    position: relative;
+    /*left: 18px;
+    top: 60%;*/
     transform: translateY(-50%);
     color: var(--gray-300);
 }
