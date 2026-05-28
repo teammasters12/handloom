@@ -403,7 +403,7 @@ input, select, textarea {
     box-shadow: var(--shadow-glow);
 }
 
-.search-icon {
+.fa-magnifying-glass {
     position: absolute;
     left: 18px;
     top: 60%;
