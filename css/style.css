@@ -1,5 +1,7 @@
 /* css/style.css */
-
+#searchInput{
+    padding-left:50px;
+}
 /* ========== CSS Variables ========== */
 :root {
     /* Brand Colors from Logo */
