@@ -403,7 +403,8 @@ input, select, textarea {
     box-shadow: var(--shadow-glow);
 }
 
-.fa-magnifying-glass {
+.fa-magnifying-glass,
+.fa-search {
     position: absolute;
     left: 18px;
     top: 50%;
