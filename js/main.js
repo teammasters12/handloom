@@ -157,16 +157,32 @@ async function loadCategories() {
 async function loadNewArrivals() {
     const config = await JSONBinService.getNewArrivalsConfig();
     const section = document.getElementById('newArrivalsSection');
-    
+
     if (!config || !config.enabled) {
         section.style.display = 'none';
         return;
     }
-    
-    const products = await ProductService.getNewArrivals(config.limit || 8);
+
+    const products = await ProductService.getNewArrivals();
+    const twoWeeksAgo = new Date();
+
+    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+
+    const recentProducts = products
+        .filter(product => new Date(product.createdAt) >= twoWeeksAgo)
+        .slice(0, config.limit || 8);
+
     const grid = document.getElementById('newArrivalsGrid');
-    
-    grid.innerHTML = products.map(product => createProductCard(product, true)).join('');
+
+    if (recentProducts.length === 0) {
+        grid.innerHTML = '<p class="coming-soon">Coming soon</p>';
+        return;
+    }
+
+    grid.innerHTML = recentProducts
+        .map(product => createProductCard(product, true))
+        .join('');
+
     addProductCardListeners(grid);
 }
 
