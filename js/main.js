@@ -175,32 +175,7 @@ async function loadNewArrivals() {
     const grid = document.getElementById('newArrivalsGrid');
 
     if (recentProducts.length === 0) {
-        grid.innerHTML = '<p class="coming-soon" role="status" style="
-            grid-column: 1 / -1;
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-sm);
-            padding: var(--space-xl);
-            margin: var(--space-md) 0;
-            color: var(--indigo);
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.95),
-                rgba(245, 247, 250, 0.95)
-            );
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            font-family: var(--font-family);
-            font-size: var(--font-size-lg);
-            font-weight: 600;
-            text-align: center;">
-            <i class="fa-solid fa-clock" style="color: var(--gold); font-size: 1.8rem;"></i>
-            <span style="color: var(--indigo-deep);">New arrivals coming soon</span>
-        </p>';
+        grid.innerHTML = '<p class="coming-soon" role="status" style="white-space: nowrap; color: var(--primary-blue); font-family: var(--font-family); font-size: 25px; font-weight: 600; text-align: center;</p>';
         return;
     }
 
