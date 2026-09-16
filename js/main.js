@@ -175,7 +175,7 @@ async function loadNewArrivals() {
     const grid = document.getElementById('newArrivalsGrid');
 
     if (recentProducts.length === 0) {
-        grid.innerHTML = '<p class="coming-soon" style="color: #01bfff; font-family:Poppins-apple-systemBlinkMacSystemFontsans-serif; font-size: 16px; cursor: pointer;">Coming soon</p>';
+        grid.innerHTML = '<p class="coming-soon" style="color: #01bfff; font-family:Poppins-apple-systemBlinkMacSystemFontsans-serif; font-size: 25px; cursor: pointer; padding:0; margin:0; font-weigth:500;">Coming soon</p>';
         return;
     }
 
